@@ -1,0 +1,110 @@
+person|persona
+bicycle|bicicleta
+car|auto
+motorcycle|motocicleta
+airplane|avión
+bus|autobús
+train|tren
+truck|camión
+boat|bote
+traffic light|semáforo
+fire hydrant|hidrante
+stop sign|señal de alto
+parking meter|parquímetro
+bench|banca
+bird|ave
+cat|gato
+dog|perro
+horse|caballo
+sheep|oveja
+cow|vaca
+elephant|elefante
+bear|oso
+zebra|cebra
+giraffe|jirafa
+backpack|mochila
+umbrella|paraguas
+handbag|bolso
+tie|corbata
+suitcase|maleta
+frisbee|disco volador
+skis|esquís
+snowboard|tabla de nieve
+sports ball|pelota
+kite|papalote
+baseball bat|bate de béisbol
+baseball glove|guante de béisbol
+skateboard|patineta
+surfboard|tabla de surf
+tennis racket|raqueta de tenis
+bottle|botella
+wine glass|copa
+cup|taza
+fork|tenedor
+knife|cuchillo
+spoon|cuchara
+bowl|tazón
+banana|plátano
+apple|manzana
+sandwich|sándwich
+orange|naranja
+broccoli|brócoli
+carrot|zanahoria
+hot dog|hot dog
+pizza|pizza
+donut|dona
+cake|pastel
+chair|silla
+couch|sofá
+potted plant|planta en maceta
+bed|cama
+dining table|mesa de comedor
+toilet|inodoro
+television|televisor
+laptop|computadora portátil
+computer mouse|ratón de computadora
+remote control|control remoto
+keyboard|teclado
+cell phone|celular
+microwave|microondas
+oven|horno
+toaster|tostador
+sink|fregadero
+refrigerator|refrigerador
+book|libro
+clock|reloj
+vase|florero
+scissors|tijeras
+teddy bear|oso de peluche
+hair dryer|secadora de cabello
+toothbrush|cepillo de dientes
+soda can|lata de refresco
+eyeglasses|lentes
+headphones|audífonos
+computer monitor|monitor
+computer tablet|tableta
+notebook|cuaderno
+pencil|lápiz
+pen|bolígrafo
+eraser|borrador
+ruler|regla
+calculator|calculadora
+stapler|engrapadora
+water pitcher|jarra
+plate|plato
+frying pan|sartén
+cooking pot|olla
+electric kettle|hervidor eléctrico
+flashlight|linterna
+hammer|martillo
+screwdriver|destornillador
+pliers|pinzas
+measuring tape|cinta métrica
+wrench|llave inglesa
+keys|llaves
+wallet|cartera
+baseball cap|gorra
+shoe|zapato
+glove|guante
+desk lamp|lámpara de escritorio
+electric fan|ventilador
