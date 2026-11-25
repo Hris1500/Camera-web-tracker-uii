@@ -5,7 +5,7 @@
  * Protocolo serie, 115200 baudios, una orden por línea ('\n'):
  *   PC -> Arduino
  *     P,<pan>,<tilt>   objetivo en DÉCIMAS de grado, dentro de los límites (ej. P,900,900 = centro)
- *     R,<pan>,<tilt>   igual pero ignorando los límites (0-180°): solo para calibrar
+ *     R,<pan>,<tilt>   igual pero ignorando los límites (-20° a 200°): solo para calibrar
  *     L,<panMin>,<panMax>,<tiltMin>,<tiltMax>   guarda los límites (grados) en EEPROM
  *     M0 | M1 | M2     modo: 0 libre, 1 fijado, 2 perdido (LEDs)
  *     C                centrar
@@ -14,7 +14,7 @@
  *     READY,<panMin>,<panMax>,<tiltMin>,<tiltMax>   al arrancar y al cambiar límites (grados)
  *     A,<pan>,<tilt>   posición real actual, décimas de grado, cada 50 ms
  *     IR,<0|1>         cambio en el sensor PIR
- *     ERR,L            límites rechazados (mín < máx, 0-180, al menos 20° de recorrido)
+ *     ERR,L            límites rechazados (mín < máx, -20..200, al menos 20° de recorrido)
  */
 #include <Servo.h>
 #include <EEPROM.h>
@@ -33,6 +33,9 @@ const int16_t PAN_MIN_DEF = 10,  PAN_MAX_DEF = 170;
 const int16_t TILT_MIN_DEF = 40, TILT_MAX_DEF = 140;
 const int US_0   = 544;    // pulso a 0°
 const int US_180 = 2400;   // pulso a 180°
+// Rango eléctrico máximo que se deja usar (≈ -20° a 200°): muchos SG90 llegan algo más allá de 0-180.
+const int16_t GR_MIN = -20, GR_MAX = 200;
+const int US_MIN = 330, US_MAX = 2610;
 
 // Velocidad y aceleración por eje: el pan mueve todo el soporte y la cámara, por eso va más suave.
 const float PAN_VEL = 90.0,  PAN_ACC = 250.0;    // °/s y °/s²
@@ -50,8 +53,8 @@ const uint8_t MAGIA = 0xA7;   // marca de "EEPROM ya calibrada"
 Limites lim = {MAGIA, PAN_MIN_DEF, PAN_MAX_DEF, TILT_MIN_DEF, TILT_MAX_DEF};
 
 bool validos(const Limites &l) {
-  return l.panMin >= 0 && l.panMax <= 180 && l.panMax - l.panMin >= 20 &&
-         l.tiltMin >= 0 && l.tiltMax <= 180 && l.tiltMax - l.tiltMin >= 20;
+  return l.panMin >= GR_MIN && l.panMax <= GR_MAX && l.panMax - l.panMin >= 20 &&
+         l.tiltMin >= GR_MIN && l.tiltMax <= GR_MAX && l.tiltMax - l.tiltMin >= 20;
 }
 
 struct Eje {
@@ -63,12 +66,12 @@ struct Eje {
   void init(uint8_t pin, int minGr, int maxGr, float v, float a) {
     lo = minGr; hi = maxGr; vMax = v; aMax = a;
     pos = tgt = constrain(90, lo, hi); vel = 0;
-    servo.attach(pin, US_0, US_180);
+    servo.attach(pin, US_MIN, US_MAX);
     escribe();
   }
   void limites(int minGr, int maxGr) { lo = minGr; hi = maxGr; tgt = constrain(tgt, lo, hi); }
   void objetivo(float g) { tgt = constrain(g, lo, hi); }
-  void objetivoLibre(float g) { tgt = constrain(g, 0, 180); }
+  void objetivoLibre(float g) { tgt = constrain(g, GR_MIN, GR_MAX); }
 
   // Perfil trapezoidal: nunca más rápido de lo que permite frenar justo en el objetivo.
   void paso(float dt) {

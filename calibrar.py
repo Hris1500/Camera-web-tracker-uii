@@ -88,7 +88,7 @@ def main():
                 ok = ard.listo.wait(1.5) and ard.error is None
                 msg = "Limites guardados en el Arduino" if ok else "El Arduino rechazo los limites"
             t_msg = time.perf_counter()
-        pan, tilt = clamp(pan, 0, 180), clamp(tilt, 0, 180)
+        pan, tilt = clamp(pan, -20, 200), clamp(tilt, -20, 200)  # todo el rango eléctrico del Arduino
 
     ard.envia("C")
     cv2.destroyAllWindows()
