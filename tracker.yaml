@@ -1,0 +1,13 @@
+# BoT-SORT para el modo libre: cada objeto con un ID estable (el que se ve como "#N" en pantalla).
+tracker_type: botsort
+track_high_thresh: 0.3   # detecciones fuertes: primera asociación
+track_low_thresh: 0.1    # detecciones débiles (borrosas): segunda asociación, no se descartan
+new_track_thresh: 0.4    # exige más para crear IDs nuevos -> menos IDs duplicados
+track_buffer: 90         # ~3 s recordando un objeto oculto antes de darle un ID nuevo
+match_thresh: 0.8
+fuse_score: True
+gmc_method: none         # en modo libre la cámara está quieta
+proximity_thresh: 0.5
+appearance_thresh: 0.75
+with_reid: True          # apariencia para no intercambiar IDs entre objetos parecidos y cercanos
+model: auto              # usa las características del propio YOLO: sin modelo extra
